@@ -1,2 +1,2 @@
 #!/bin/bash
-cp -a frontend/build/. backend/static/
+cp -a frontend/build/. backend/build/
