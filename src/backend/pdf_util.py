@@ -100,7 +100,6 @@ def wrap_text(text, line_length):
     return lines
        
 def update_pdf(input_pdf: str, output_pdf: str, data_dict: dict):
-    # temp_pdf = 'temp.pdf'
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     
@@ -131,6 +130,3 @@ def update_pdf(input_pdf: str, output_pdf: str, data_dict: dict):
     output_buffer.seek(0)
     
     return output_buffer
-
-info = {'Name':'John Peterson', 'Company':'The Fire House', 'Address1':'12 Dewberry Street', 'Phone':'918-785-0983', 'addressZip':'10001', 'sellingPrice':10000, 'listingTitle': "2008 Pierce Impel Top Mount Pump", 'listingDescription':'This 2008 Pierce Impel has seating for 6 (5 SCBA), a 1,500 gpm Waterous pump, 750 gallon tank, foam system, Harrison 6.0kW generator and hydraulic ladder rack.   LED lightbar, warning lights and rear rotators, and special SCBA storage for 7 bottles in the R1 compartment.   \n\nBasic Info\n\nManufacturer: Pierce\nModel: Impel XM\nTruck Type: Pumper\nYear: 2008\n\nChassis Info\n\nMake: Pierce\nMileage: 114152\nPower Steering: Y \nWheelbase: 218\"\nLength: 34\'6\"\nAll Wheel Drive: N\nAxles: 2\nHeight: 9/11\" \nWidth: 9: 9\'\n\nEngine Info\n\nMake: Cummins\nTurbo: Yes\nBattery: 6\nFuel: Diesel\nHours: 10415\n\nCab Info\n\nMaterial: Aluminum \nSeating: 6\nAir Conditioning: Y\nSeating Type: 5 SCBA\n\nPump Info\n\nMake: Waterous\nGPM: 1500\nLocation: Top Mount\nPump & Roll: N\nDeck Gun: Y\nBooster Reels: No\nDump Value: No\nModel: CSU\nStages: 1\nTest Date\" 2/4/24\nDischarges: 4\nCrosslays: 2 speedlays (1.75\")\nIntake suction: Yes, 2\n\nTank Info\n\nSize in Gallon: 750\nMaterial: Poly\n\nTransmission Info\n\nMake: Allison\nType: Auto\nModel: 3000\nBrake: Jake\n\nBody Info\n\nMake: Aluminum \nCompartment Door Type: Roll up, painted\nCompartment door #: 7\n\nFoam Info\n\nMake: Husky\nMaterial: Poly\nTank Size: 30\n\n'}
-# update_pdf(input_pdf=input_pdf, output_pdf=output_pdf, data_dict=info)

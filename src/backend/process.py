@@ -44,7 +44,4 @@ def get_details(form_data: dict):
         raise RequestException("Unique ID in URL does not match an existing Garage Listing")
     data_dict.update(form_data)
     return pdf_util.update_pdf(input_pdf, output_pdf, data_dict)
-    
-    
-    
-# get_details('https://www.withgarage.com/listing/8ffaaa7c-778a-4dcd-ab20-dba7a24db2a1')
+
