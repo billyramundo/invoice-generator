@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder='./build')
 CORS(app)
 
 app.config['TAX_API_KEY'] = os.getenv('TAX_API_KEY')
@@ -14,7 +14,7 @@ app.config['TAX_API_KEY'] = os.getenv('TAX_API_KEY')
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
