@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='frontend/public')
+app = Flask(__name__, static_folder='static')
 CORS(app)
 
 app.config['TAX_API_KEY'] = os.getenv('TAX_API_KEY')
