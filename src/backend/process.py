@@ -4,8 +4,7 @@ from requests.exceptions import HTTPError, Timeout, RequestException
 import pdf_util as pdf_util
 
 input_pdf = 'sales-invoice.pdf'
-output_pdf = 'completed-sales-invoice.pdf'
-
+# Function for POST request to garage listing API
 def post_request(uuid: str):
     post_url = "https://garage-backend.onrender.com/getListing"
     data = {
@@ -33,7 +32,7 @@ def post_request(uuid: str):
         print(f"An error occurred during POST Request to Garage API: {err}")
         raise err
     
-
+# Get the info on the listing submitted by the user
 def get_details(form_data: dict):
     url_list = form_data.get('url').split('listing/')
     if len(url_list) != 2 :
@@ -43,5 +42,5 @@ def get_details(form_data: dict):
     if not data_dict:
         raise RequestException("Unique ID in URL does not match an existing Garage Listing")
     data_dict.update(form_data)
-    return pdf_util.update_pdf(input_pdf, output_pdf, data_dict)
+    return pdf_util.update_pdf(input_pdf, data_dict)
 
