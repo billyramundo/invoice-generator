@@ -38,6 +38,7 @@ function App() {
     
     if(!res.ok){
       const errorData = await res.json();
+      alert(errorData.error)
       throw new Error(errorData.error || "An unknown error occurred");
     }
     
