@@ -32,7 +32,7 @@ def post_request(uuid: str):
         print(f"An error occurred during POST Request to Garage API: {err}")
         raise err
     
-# Get the info on the listing submitted by the user
+# Get the info on the listing submitted by the user - raise errors if URL is invalid or if the unique ID after /listing does not exist
 def get_details(form_data: dict):
     url_list = form_data.get('url').split('listing/')
     if len(url_list) != 2 :

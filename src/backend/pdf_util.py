@@ -70,6 +70,7 @@ def draw_dates(c, x_pos, startng_y_pos, font_size):
 def draw_item(c, starting_x_pos, y_pos, font_size, attribs):
     title_text = c.beginText(starting_x_pos, y_pos)
     title_text.setFont("Helvetica-Bold", font_size)
+    # Put each word on a new line to avoid spilling over and even split the word in two if necessary
     for word in attribs[0].split(" "):
         if(len(word) > 7) :
             title_text.textLine(word[:7] + '-')
@@ -110,9 +111,11 @@ def wrap_text(text, line_length):
 
 # Central engine of the pdf creation
 def update_pdf(input_pdf: str, data_dict: dict):
+    # have pdf with new drawing as buffer, use canvas from reportlab to draw
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     
+    # Separate the drawing out into sections with diff functions - each gets specific variables and has specific instructions
     contact_attribs = [data_dict.get('name'), data_dict.get('company'), data_dict.get('address1'), data_dict.get('address2'), data_dict.get('phone')]
     draw_contact_info(c, 125, 640, 9, contact_attribs)
     draw_contact_info(c, 475, 640, 9, contact_attribs)
@@ -131,6 +134,7 @@ def update_pdf(input_pdf: str, data_dict: dict):
     c.save()
     buffer.seek(0)
     
+    # Overlay the pdf with the drawings onto the template invoice and then return the combo
     template = PdfReader(input_pdf)
     overlay = PdfReader(buffer)
     output_buffer = io.BytesIO()

@@ -2,6 +2,7 @@ import './App.css';
 import React, {useState} from 'react'
 
 function App() {
+  //holds and sets values for all the text boxes
   const[formData, setFormData] = useState({
     url: '',
     name: '',
@@ -13,6 +14,7 @@ function App() {
 
   const [isAnimating, setIsAnimating] = useState(false);
 
+  //updates values associated with text boxes when user types
   const handleChange = (event) => {
     const {name, value} = event.target;
     setFormData({
@@ -20,14 +22,14 @@ function App() {
       [name]: value
     });
   };
-
+//event that occurs when button is clicked
   const handleSubmit = async (event) => {
     event.preventDefault();
     if(!formData.url.trim()){
       alert("A URL is required to generate an invoice")
       return;
     }
-  
+  //post request to backend
     const res = await fetch('/create_pdf', {
       method: 'POST',
       headers: {
@@ -35,13 +37,13 @@ function App() {
       },
       body: JSON.stringify(formData),
     })
-    
+    //popup alert if any error is returned
     if(!res.ok){
       const errorData = await res.json();
       alert(errorData.error)
       throw new Error(errorData.error || "An unknown error occurred");
     }
-    
+    //logic to return the PDF to the frontend 
     const blob = await res.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -50,7 +52,7 @@ function App() {
     document.body.appendChild(a);
     a.click();
     a.remove();
-
+//reset text boxes after submission
     setFormData({
       url: '',
       name: '',
@@ -60,19 +62,22 @@ function App() {
       phone: '',
     });
   };
-
+//animation for the button
   const handleButtonClick = () => {
     setIsAnimating(true);
     setTimeout(() => {
       setIsAnimating(false);
     }, 200);
   };
+
+  //HTML setup
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold text-center text-orange-500">
+      <img src="/garage_logo.svg" alt="" className="absolute top-0 left-0 h-16 w-16 m-4" />
+      <h1 className="text-3xl font-bold text-center text-orange-500 mt-4">
         Garage Invoice Generator
       </h1>
-      <div className='border-b mt-4'></div>
+      <div className='border-b mt-5'></div>
       {<p className='text-black text-lg italic mb-4 mt-4 text-center'>
         Get a fully populated* PDF invoice for any truck on Garage by simply pasting the listing URL below!
         </p>}
@@ -177,7 +182,7 @@ function App() {
         </button>
       </form>
       <div className='border-b mt-10'></div>
-      {<p className='text-gray-400 italic mt-10 text-center text-xs'>
+      {<p className='text-gray-400 italic mt-5 text-center text-xs'>
         *There may be certain details missing if they are not included by you or the listing
         </p>}
     </div>
